@@ -167,6 +167,51 @@ body {
   color: var(--color-primary-dark);
 }
 
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  gap: 1rem;
+  position: relative; /* so the mobile menu can be positioned */
+}
+
+/* Hamburger button */
+.nav-toggle {
+  display: none; /* shown on mobile via media query */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-primary-dark);
+  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+/* spacing between lines */
+.nav-toggle span + span {
+  margin-top: 4px;
+}
+
+/* X animation when open */
+.nav-toggle.nav-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle.nav-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.nav-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
 /* ========== Hero ========== */
 
 .hero {
@@ -544,10 +589,36 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  /* show hamburger on mobile */
+  .nav-toggle {
+    display: block;
+  }
+
+  /* turn nav into dropdown panel */
   .main-nav {
-    display: none; /* simple: hide nav on small screens */
+    position: absolute;
+    top: 64px;
+    right: 1.5rem;
+    background: rgba(244, 238, 255, 0.98);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-soft);
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .main-nav.nav-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 }
+
 
 @media (max-width: 640px) {
   .hero {
